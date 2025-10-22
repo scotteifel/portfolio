@@ -14,7 +14,7 @@ Production trading infrastructure with IP filtering, rate limiting, real-time ex
 **Live**: [spendingapi.com](https://spendingapi.com)  
 Automated government contract analysis platform using AI-powered evaluation. Processes 500+ contracts daily.
 
-### [Options Trading Bot](./options-trading-bot/)
+### [Options Trading Bot](./trading-bot/)
 **Tech**: Python, Interactive Brokers API, Flask  
 **Live**: 24/7 production system  
 Automated options trading system with complex 4-leg order execution and Greeks calculation.
