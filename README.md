@@ -1,4 +1,4 @@
-# Scott Eifel - Backend Engineering Portfolio
+## Portfolio
 
 Backend engineer specializing in production systems, API integration, and real-time data processing.
 
