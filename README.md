@@ -31,6 +31,6 @@ Automated options trading system with complex 4-leg order execution and Greeks c
 **Frontend**: Next.js, React, TypeScript  
 
 ## 📫 Contact
-- **Upwork**: [Your Upwork profile URL]
+- **Upwork**: (https://www.upwork.com/freelancers/~01528692969b8cd521?viewMode=1)
 - **GitHub**: [@scotteifel](https://github.com/scotteifel)
 - **Website**: spendingapi.com
