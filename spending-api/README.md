@@ -9,7 +9,7 @@ Automated analysis platform for federal government contracts. Fetches, analyzes,
 - Fetches 500+ federal contracts daily from USAspending.gov public API
 - Multi-stage AI analysis using Groq/LLaMA models for cost evaluation
 - Generates individual SEO-optimized pages for each contract
-- Automated pipeline runs on Railway ($5 hobby tier with database sleep/wake)
+- Automated pipeline runs on Railway 
 
 ## Technical Highlights
 
