@@ -21,7 +21,7 @@ Automated options trading system with complex 4-leg order execution and Greeks c
 
 ## 💼 Professional Experience
 - **Founding CTO** - Trading Platform (2023-Present)
-- **Freelance Backend Engineer** - Upwork (100% Job Success Score)
+- **Freelance Backend Engineer**
 
 ## 🛠 Technical Skills
 **Backend**: Python, FastAPI, Django, Flask, SQLAlchemy  
