@@ -1,6 +1,6 @@
 ## Portfolio
 
-Backend engineer specializing in production systems, API integration, and real-time data processing.
+Backend engineer with full-stack capability, specializing in production systems, API integration, and real-time data processing.
 
 ## Featured Projects
 
