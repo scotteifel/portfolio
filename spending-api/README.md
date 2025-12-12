@@ -1,168 +1,32 @@
-# The Spending List
+# SpendingAPI.com
 
-AI-powered analysis of government contract spending data from USASpending.gov. Built to promote transparency and help citizens understand how public funds are used.
+Automated analysis platform for federal government contracts. Fetches, analyzes, and publishes contract data daily.
 
-## Tech Stack
+**Live**: [spendingapi.com](https://spendingapi.com)
 
-- **Frontend:** Next.js 15, React 19, TypeScript, Tailwind CSS
-- **Backend:** Next.js API Routes, Prisma ORM
-- **Database:** PostgreSQL
-- **AI:** Groq (Llama 3.1), Claude (optional)
-- **Deployment:** Railway / Docker
-- **Rate Limiting:** Upstash Redis
+## What It Does
 
-## Features
+- Fetches 500+ federal contracts daily from USAspending.gov public API
+- Multi-stage AI analysis using Groq/LLaMA models for cost evaluation
+- Generates individual SEO-optimized pages for each contract
+- Automated pipeline runs on Railway 
 
-- 🤖 AI-powered contract analysis and scoring (1-10 scale)
-- 🔍 Search and filter government contracts
-- 📊 Admin dashboard for data management
-- 🗺️ Dynamic sitemap generation for SEO
-- 📈 Contract categorization and scoring
-- 🔗 Direct links to USASpending.gov for verification
+## Technical Highlights
 
-## Development Setup
+- Handles API pagination (5 pages, 100 contracts per page)
+- Rate limiting and error recovery between requests
+- Multi-stage data pipeline: fetch → filter → analyze → publish
+- AI prompt engineering for consistent contract evaluation
+- Cold start optimization for Railway hobby tier
 
-### Option 1: Standard Development (Current Workflow)
+## Architecture
 
-1. **Install dependencies:**
+- **Frontend**: Next.js, React, TypeScript, Tailwind CSS
+- **Backend**: Next.js API routes
+- **AI**: Groq API (LLaMA 3.1)
+- **Data Source**: USAspending.gov public API
+- **Deployment**: Railway with Docker
 
-```bash
-npm install
-```
+Built as a portfolio project to demonstrate full-stack capability, API integration, and AI implementation.
 
-2. **Set up environment variables:**
-   Create a `.env` or `.env.local` file:
-
-```env
-DATABASE_URL=postgresql://user:password@localhost:5432/thespendinglist
-GROQ_API_KEY=your-groq-key
-ADMIN_API_KEY=your-admin-key
-NEXT_PUBLIC_URL=http://localhost:3000
-```
-
-3. **Set up database:**
-
-```bash
-npm run db:push
-```
-
-4. **Run development server:**
-
-```bash
-npm run dev
-```
-
-Visit http://localhost:3000
-
-### Option 2: Docker Development
-
-Run the entire stack (app + PostgreSQL) with Docker:
-
-1. **Build and start containers:**
-
-```bash
-docker-compose up
-```
-
-2. **Run database migrations (first time only):**
-
-```bash
-docker-compose exec app npx prisma db push
-```
-
-3. **Stop containers:**
-
-```bash
-docker-compose down
-```
-
-**Note:** You'll need to add your API keys to the `docker-compose.yml` file.
-
-## Production Deployment
-
-### Railway (Current Method)
-
-- Push to GitHub
-- Railway auto-detects Next.js and builds
-- Set environment variables in Railway dashboard
-
-### Docker (Alternative)
-
-```bash
-# Build image
-docker build -t thespendinglist .
-
-# Run container
-docker run -p 3000:3000 \
-  -e DATABASE_URL=your-database-url \
-  -e GROQ_API_KEY=your-api-key \
-  thespendinglist
-```
-
-## Scripts
-
-```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run db:push      # Push Prisma schema to database
-npm run db:migrate   # Create database migration
-npm run db:studio    # Open Prisma Studio
-```
-
-## Admin Dashboard
-
-Access at `/api/admin` with your admin key.
-
-Features:
-
-- Crawl USASpending.gov for new contracts
-- View analytics and statistics
-- Manage contract entries
-
-## Project Structure
-
-```
-├── app/                    # Next.js app directory
-│   ├── api/               # API routes
-│   ├── contract/          # Contract detail pages
-│   └── page.tsx           # Home page
-├── components/            # React components
-├── lib/                   # Utility functions
-│   ├── groq.ts           # AI analysis with Groq
-│   ├── usaspending.ts    # USASpending.gov API
-│   └── db.ts             # Prisma client
-├── prisma/
-│   └── schema.prisma     # Database schema
-├── Dockerfile            # Docker container config
-└── docker-compose.yml    # Local dev stack
-```
-
-## Key Design Decisions
-
-- **AI Analysis Removed:** Originally included detailed contract analysis with Claude, but removed to reduce legal liability while maintaining core scoring functionality
-- **Simple Scoring:** Uses Llama 3.1 for straightforward 1-10 price reasonableness scores
-- **No Contractor Accusations:** Focuses on contract terms only, not contractor history
-- **Educational Focus:** Promotes transparency without making accusations
-
-## Contributing
-
-This is a portfolio project demonstrating:
-
-- Full-stack TypeScript development
-- AI/LLM integration
-- Database design with Prisma
-- Automated data pipelines
-- Docker containerization
-- Production deployment
-
-## License
-
-MIT
-
-## Disclaimer
-
-This site uses AI to analyze publicly available government contract data. The observations are generated by artificial intelligence and may not reflect the full context. These are not accusations of wrongdoing. Always verify information independently at USASpending.gov.
-
-For educational and transparency purposes only.
+**Tech**: Next.js, TypeScript, React, Docker, Railway, Groq API
