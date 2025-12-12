@@ -1,12 +1,28 @@
-# Production Trading API Infrastructure
+> **Currently deployed in production, processing live trades across multiple exchanges with 99.9% uptime.**
 
 A production-grade FastAPI trading system currently processing live trades with enterprise-level security and monitoring.
 
+**Horizontally Scaled, Leader-Follower Pattern**
+
+- **3 FastAPI instances** processing webhooks simultaneously
+- **Leader (Instance 0)**: Write-enabled, runs scheduled jobs
+- **Followers (Instances 2, 5)**: Read-only replicas (commit/flush = no-op)
+- **Shared PostgreSQL**: Instance-aware connection pooling (10+20 leader, 5+10 followers)
+- **Redis**: Rate limiting (5 req/60s), auto-ban (50 req/hr), whitelist management
+- **APScheduler**: 30-min cron jobs for OHLC updates (leader only)
+
+**Key Patterns:**
+
+- Webhook response times optimized for real-time trading requirements
+- Event-driven DB audit trail (SQLAlchemy listeners → Telegram alerts)
+- Circuit breaker for SSL errors with auto-recovery
+- Multi-exchange support (Bitget, Binance, Coinbase)
+
 ## 🎯 Business Impact
 
-- **Live Production System**: Serving multiple users for 4+ months
+- **Live Production**: 6+ months uptime, processing real-time trading signals
 - **Real Stakes**: Handles real trading decisions and executions
-- **Zero Downtime**: Built for 24/7 reliability with auto-recovery
+- **Zero Downtime**: Built for 24/7 reliability
 - **Multi-User Platform**: Enables non-technical users to deploy strategies independently
 
 ## 🏗️ What I Built
@@ -14,21 +30,20 @@ A production-grade FastAPI trading system currently processing live trades with 
 Enterprise-grade algorithmic trading platform with:
 
 - FastAPI backend with production security (IP whitelisting, rate limiting, auto-banning)
-- Real-time WebSocket connections for live price monitoring
 - PostgreSQL + Redis architecture for performance and caching
 - TradingView webhook integration with exchange APIs
-- Sophisticated hedging system for complex risk management
-- Railway deployment with GitHub CI/CD
+- Hedging system for complex risk management
+- Railway deployment with GitHub integration
 
 ## 🚀 Live in Production
 
-This system has been running in production for 4+ months, handling real trades on Bitget exchange and others.
+This system has been running in production for 6+ months, handling real trades.
 
 ## ✨ Key Features
 
 ### Security & Authentication
 
-- IP whitelist verification for all endpoints
+- IP whitelist verification for endpoints
 - API key authentication with environment variables
 - HMAC signature generation for exchange requests
 - Redis-based rate limiting (5 req/minute default)
@@ -40,7 +55,6 @@ This system has been running in production for 4+ months, handling real trades o
 - Support for market and limit orders
 - Futures trading with margin management
 - Intelligent scheduler with cancellation events
-- WebSocket connections for real-time monitoring
 
 ### Production Architecture
 
@@ -48,26 +62,41 @@ This system has been running in production for 4+ months, handling real trades o
 - Dependency injection pattern
 - Global state management
 - Comprehensive error handling and logging
-- Health check endpoints
 - Multi-instance coordination support
 
 ## 🛠 Tech Stack
 
-- **Framework**: FastAPI (Python 3.11+)
-- **Database**: PostgreSQL + SQLAlchemy ORM
-- **Caching**: Redis
-- **Scheduler**: APScheduler
-- **Exchange**: Bitget API
-- **Deployment**: Railway
+**Backend**
+
+- FastAPI (async Python 3.9+)
+- SQLAlchemy 2.0 (ORM with event listeners)
+- Pydantic (request/response validation)
+
+**Data Layer**
+
+- PostgreSQL (Railway) - Leader-follower writes, instance-aware pooling
+- Redis (Upstash) - Distributed rate limiting, auto-bans
+
+**Integrations**
+
+- TradingView webhooks
+- Bitget/Binance APIs (REST)
+- 3 Telegram bots (dev/user/trading alerts)
+
+**Infrastructure**
+
+- Railway deployment (Nixpacks containerization)
+- APScheduler (cron jobs)
+- Instance-aware configuration
 
 ## 📝 Code Highlights
 
 This repository demonstrates:
 
 - Production-ready async Python
+- Distributed system design (leader-follower, fanout patterns)
 - Secure API design patterns
 - Complex state management
-- Real-time WebSocket integration
 - Professional error handling
 
 ## 🔒 Security Notice
@@ -76,6 +105,6 @@ Sensitive information and proprietary trading logic have been removed from this 
 
 ## 👨‍💻 Author
 
-**Scott E.** - Founding CTO at algorithmic trading startup
+**Scott E.** - Backend Engineer & Equity Partner
 
 - [Upwork Profile] https://www.upwork.com/freelancers/~01528692969b8cd521?mp_source=share
