@@ -40,3 +40,5 @@ Production trading bot executing complex 4-leg options strategies 24/7 on Intera
 ---
 
 **Note**: Proprietary trading logic removed for client confidentiality.
+
+Upwork: https://www.upwork.com/freelancers/~01528692969b8cd521?viewMode=1
